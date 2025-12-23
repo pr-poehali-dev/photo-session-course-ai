@@ -5,7 +5,6 @@ import { Textarea } from '@/components/ui/textarea';
 import Icon from '@/components/ui/icon';
 
 export default function Index() {
-  const [activeSection, setActiveSection] = useState<'home' | 'lessons' | 'practice'>('home');
   const [prompt, setPrompt] = useState('');
   const [generatedImage, setGeneratedImage] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -22,220 +21,25 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-background/80 border-b border-border">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary glow-effect flex items-center justify-center">
-              <Icon name="Sparkles" size={24} className="text-white" />
-            </div>
-            <h1 className="text-2xl font-heading font-bold gradient-text">AI PhotoCourse</h1>
-          </div>
-          
-          <div className="flex gap-2">
-            <Button
-              variant={activeSection === 'home' ? 'default' : 'ghost'}
-              onClick={() => setActiveSection('home')}
-              className="font-medium"
-            >
-              <Icon name="Home" size={18} className="mr-2" />
-              Главная
-            </Button>
-            <Button
-              variant={activeSection === 'lessons' ? 'default' : 'ghost'}
-              onClick={() => setActiveSection('lessons')}
-              className="font-medium"
-            >
-              <Icon name="BookOpen" size={18} className="mr-2" />
-              Уроки
-            </Button>
-            <Button
-              variant={activeSection === 'practice' ? 'default' : 'ghost'}
-              onClick={() => setActiveSection('practice')}
-              className="font-medium"
-            >
-              <Icon name="Wand2" size={18} className="mr-2" />
-              Практика
-            </Button>
-          </div>
-        </div>
-      </nav>
-
-      <main className="pt-24 pb-12">
-        {activeSection === 'home' && (
-          <div className="container mx-auto px-6 space-y-20">
+      <main className="py-12">
+        <div className="container mx-auto px-6 space-y-20">
             <section className="text-center space-y-6 py-20 animate-fade-in">
               <div className="inline-block">
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary blur-3xl opacity-30 animate-pulse-glow"></div>
-                  <h2 className="relative text-6xl md:text-8xl font-heading font-extrabold gradient-text">
-                    Фотосессия с AI
-                  </h2>
+                  <h1 className="relative text-6xl md:text-8xl font-heading font-extrabold gradient-text">
+                    AI Фотосессия
+                  </h1>
                 </div>
               </div>
               
               <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-                Освойте искусство создания профессиональных фотосессий с помощью нейросетей
+                Создавайте профессиональные фотосессии с помощью нейросетей
               </p>
-              
-              <div className="flex gap-4 justify-center pt-6">
-                <Button 
-                  size="lg" 
-                  className="glow-effect text-lg font-semibold"
-                  onClick={() => setActiveSection('lessons')}
-                >
-                  <Icon name="Play" size={20} className="mr-2" />
-                  Начать обучение
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  className="text-lg font-semibold border-primary/50 hover:glow-effect"
-                  onClick={() => setActiveSection('practice')}
-                >
-                  <Icon name="Sparkles" size={20} className="mr-2" />
-                  AI Генератор
-                </Button>
-              </div>
             </section>
 
-            <section className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: 'Brain',
-                  title: 'AI-Технологии',
-                  description: 'Используйте мощь нейросетей для создания уникальных концептов'
-                },
-                {
-                  icon: 'Zap',
-                  title: 'Быстрое обучение',
-                  description: 'Практические уроки с мгновенной генерацией примеров'
-                },
-                {
-                  icon: 'Award',
-                  title: 'Профессиональный подход',
-                  description: 'От новичка до профи за несколько недель'
-                }
-              ].map((feature, idx) => (
-                <Card 
-                  key={idx} 
-                  className="p-8 bg-card/50 backdrop-blur border-border/50 hover:glow-effect transition-all duration-300 animate-fade-in group hover:scale-105"
-                  style={{ animationDelay: `${idx * 100}ms` }}
-                >
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary glow-effect-blue flex items-center justify-center mb-6 group-hover:animate-float">
-                    <Icon name={feature.icon as any} size={32} className="text-white" />
-                  </div>
-                  <h3 className="text-2xl font-heading font-bold mb-3">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </Card>
-              ))}
-            </section>
-          </div>
-        )}
-
-        {activeSection === 'lessons' && (
-          <div className="container mx-auto px-6 space-y-8 animate-fade-in">
-            <div className="text-center space-y-4 mb-12">
-              <h2 className="text-5xl font-heading font-bold gradient-text">Курсы обучения</h2>
-              <p className="text-xl text-muted-foreground">Выберите направление и начните учиться</p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  title: 'Основы работы с AI',
-                  level: 'Начальный',
-                  duration: '2 часа',
-                  lessons: 8,
-                  icon: 'GraduationCap',
-                  color: 'from-purple-500 to-pink-500'
-                },
-                {
-                  title: 'Создание концептов',
-                  level: 'Средний',
-                  duration: '3 часа',
-                  lessons: 12,
-                  icon: 'Lightbulb',
-                  color: 'from-blue-500 to-cyan-500'
-                },
-                {
-                  title: 'Профессиональная обработка',
-                  level: 'Продвинутый',
-                  duration: '4 часа',
-                  lessons: 15,
-                  icon: 'Palette',
-                  color: 'from-orange-500 to-red-500'
-                },
-                {
-                  title: 'Стилизация и фильтры',
-                  level: 'Средний',
-                  duration: '2.5 часа',
-                  lessons: 10,
-                  icon: 'Sparkles',
-                  color: 'from-green-500 to-emerald-500'
-                },
-                {
-                  title: 'Портретная съемка AI',
-                  level: 'Продвинутый',
-                  duration: '3.5 часа',
-                  lessons: 14,
-                  icon: 'User',
-                  color: 'from-violet-500 to-purple-500'
-                },
-                {
-                  title: 'Коммерческая фотография',
-                  level: 'Профессионал',
-                  duration: '5 часов',
-                  lessons: 20,
-                  icon: 'Briefcase',
-                  color: 'from-yellow-500 to-orange-500'
-                }
-              ].map((course, idx) => (
-                <Card 
-                  key={idx}
-                  className="overflow-hidden bg-card/50 backdrop-blur border-border/50 hover:glow-effect transition-all duration-300 group hover:scale-105 cursor-pointer"
-                >
-                  <div className={`h-40 bg-gradient-to-br ${course.color} relative overflow-hidden`}>
-                    <div className="absolute inset-0 bg-black/20"></div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Icon name={course.icon as any} size={64} className="text-white opacity-80 group-hover:animate-float" />
-                    </div>
-                  </div>
-                  <div className="p-6 space-y-4">
-                    <div>
-                      <h3 className="text-xl font-heading font-bold mb-2">{course.title}</h3>
-                      <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
-                        {course.level}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Icon name="Clock" size={16} />
-                        <span>{course.duration}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Icon name="BookOpen" size={16} />
-                        <span>{course.lessons} уроков</span>
-                      </div>
-                    </div>
-                    <Button className="w-full glow-effect">
-                      <Icon name="Play" size={16} className="mr-2" />
-                      Начать курс
-                    </Button>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {activeSection === 'practice' && (
-          <div className="container mx-auto px-6 max-w-6xl space-y-8 animate-fade-in">
-            <div className="text-center space-y-4 mb-12">
-              <h2 className="text-5xl font-heading font-bold gradient-text">AI Генератор изображений</h2>
-              <p className="text-xl text-muted-foreground">Создавайте уникальные фотосессии с помощью нейросети</p>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-8">
+            <section className="max-w-6xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-8">
               <Card className="p-8 bg-card/50 backdrop-blur border-border/50 space-y-6">
                 <div className="space-y-4">
                   <div>
@@ -398,8 +202,40 @@ export default function Index() {
                 ))}
               </div>
             </Card>
+            </section>
+
+            <section className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: 'Brain',
+                  title: 'AI-Технологии',
+                  description: 'Используйте мощь нейросетей для создания уникальных концептов'
+                },
+                {
+                  icon: 'Zap',
+                  title: 'Быстрое создание',
+                  description: 'Генерация профессиональных фото за считанные секунды'
+                },
+                {
+                  icon: 'Award',
+                  title: 'Качество',
+                  description: 'Результаты студийного уровня без камеры'
+                }
+              ].map((feature, idx) => (
+                <Card 
+                  key={idx} 
+                  className="p-8 bg-card/50 backdrop-blur border-border/50 hover:glow-effect transition-all duration-300 animate-fade-in group hover:scale-105"
+                  style={{ animationDelay: `${idx * 100}ms` }}
+                >
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary glow-effect-blue flex items-center justify-center mb-6 group-hover:animate-float">
+                    <Icon name={feature.icon as any} size={32} className="text-white" />
+                  </div>
+                  <h3 className="text-2xl font-heading font-bold mb-3">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </Card>
+              ))}
+            </section>
           </div>
-        )}
       </main>
 
       <footer className="border-t border-border/50 backdrop-blur-lg bg-background/80 py-8 mt-20">
